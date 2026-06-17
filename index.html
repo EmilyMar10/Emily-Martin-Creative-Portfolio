@@ -5,18 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emily Martin Creative Portfolio</title>
   <link rel="icon" href="EM%20Img%202.png" type="image/png">
-  <meta name="description" content="Creative portfolio for Emily Martin featuring graphic design, video marketing, print materials, web design, and project case studies.">
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Emily Martin Creative Portfolio">
-  <meta property="og:description" content="Creative portfolio for Emily Martin featuring graphic design, video marketing, print materials, web design, and project case studies.">
-  <meta property="og:image" content="https://raw.githubusercontent.com/EmilyMar10/Emily-Martin-Creative-Portfolio/main/EM%20Img%202.png">
-  <meta property="og:url" content="https://emilymar10.github.io/Emily-Martin-Creative-Portfolio/">
-  <meta property="og:type" content="website">
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Emily Martin Creative Portfolio">
-  <meta name="twitter:description" content="Creative portfolio for Emily Martin featuring graphic design, video marketing, print materials, web design, and project case studies.">
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/EmilyMar10/Emily-Martin-Creative-Portfolio/main/EM%20Img%202.png">
+  <meta
+    name="description"
+    content="Creative portfolio for Emily Martin featuring graphic design, video marketing, print materials, web design, and project case studies."
+  >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -719,6 +711,50 @@
       background: #ffffff;
     }
 
+    .preview-frame {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .preview-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+      background:
+        linear-gradient(160deg, rgba(255, 249, 245, 0.96), rgba(255, 241, 232, 0.94)),
+        radial-gradient(circle at top, rgba(228, 61, 18, 0.1), transparent 56%);
+      z-index: 1;
+    }
+
+    .preview-frame.is-fallback .preview-fallback {
+      opacity: 1;
+    }
+
+    .preview-frame.is-fallback img {
+      opacity: 0;
+    }
+
+    .preview-fallback span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0.8rem 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(228, 61, 18, 0.12);
+      color: var(--text);
+      font-size: 0.94rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 12px 28px rgba(181, 87, 64, 0.1);
+    }
+
     .web-preview-note {
       margin-top: 0.7rem;
       display: inline-flex;
@@ -1012,52 +1048,427 @@
         linear-gradient(180deg, rgba(255, 249, 245, 0.32), rgba(255, 249, 245, 0.12));
     }
 
-    .pdf-frame-shell iframe {
+    .pdf-frame-shell {
+      display: grid;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .pdf-preview-image {
       width: 100%;
-      height: 600px;
-      border: 0;
+      max-height: 360px;
+      object-fit: contain;
       display: block;
-      background: transparent;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
     }
 
-    @media (max-width: 1024px) {
+    .pdf-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+
+    .pdf-embed {
+      width: 100%;
+      height: min(80vh, 980px);
+      display: block;
+      border: 0;
+      background: #ffffff;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .pdf-embed object {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+      background: #ffffff;
+    }
+
+    .pdf-embed-fallback {
+      height: 100%;
+      min-height: 320px;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      background: linear-gradient(180deg, rgba(255, 249, 245, 0.92), rgba(255, 245, 238, 0.9));
+    }
+
+    .pdf-embed-fallback p {
+      margin: 0;
+      max-width: 30rem;
+      line-height: 1.7;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(54px);
+      transition:
+        opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    .reveal-left {
+      transform: translateX(-54px);
+    }
+
+    .reveal-right {
+      transform: translateX(54px);
+    }
+
+    .reveal-scale {
+      transform: translateY(34px) scale(0.96);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal,
+      .reveal-left,
+      .reveal-right,
+      .reveal-scale {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    .footer-mark {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .footer-mark::before,
+    .footer-mark::after {
+      content: "";
+      width: min(25vw, 180px);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(228, 61, 18, 0.65), rgba(228, 61, 18, 0.12));
+    }
+
+    .footer-mark::after {
+      background: linear-gradient(90deg, rgba(228, 61, 18, 0.12), rgba(228, 61, 18, 0.65));
+    }
+
+    .footer-mark-badge {
+      width: 68px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(228, 61, 18, 0.1);
+      background: rgba(235, 233, 225, 0.86);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 36px rgba(181, 87, 64, 0.1);
+    }
+
+    .footer-mark img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      opacity: 0.92;
+      filter: drop-shadow(0 6px 16px rgba(214, 83, 109, 0.1));
+    }
+
+    @media (max-width: 920px) {
+      .gallery-grid,
+      .video-grid,
+      .print-grid,
+      .case-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .web-grid,
       .bio-card {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .gallery-grid,
-      .print-grid,
-      .case-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .video-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero-copy h1 {
-        white-space: normal;
-      }
-
-      .gallery-grid,
-      .print-grid,
-      .case-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .video-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .web-grid {
         grid-template-columns: 1fr;
       }
 
       .case-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .site-header .shell {
+        align-items: flex-start;
+        gap: 0.85rem;
+      }
+
+      .brand {
+        width: 100%;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0.2rem;
+        scrollbar-width: none;
+      }
+
+      .nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hero-copy h1 {
+        white-space: normal;
+      }
+
+      .web-preview-live,
+      .web-preview-live img {
+        min-height: 300px;
+      }
+
+      .pdf-embed {
+        height: min(72vh, 860px);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(var(--max), calc(100% - 1rem));
+      }
+
+      body {
+        font-size: 15px;
+      }
+
+      .site-header .shell {
+        padding: 0.9rem 0;
+        gap: 0.7rem;
+      }
+
+      .brand-line {
+        font-size: 0.92rem;
+        letter-spacing: 0.06em;
+      }
+
+      .brand-sub {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+      }
+
+      .nav {
+        gap: 0.55rem;
+        padding-bottom: 0.1rem;
+      }
+
+      .nav a {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 0.5rem 0.8rem;
+        padding-right: 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(228, 61, 18, 0.12);
+        background: rgba(255, 249, 245, 0.72);
+        font-size: 0.81rem;
+        letter-spacing: 0.04em;
+      }
+
+      .nav a:not(:last-child)::after {
+        display: none;
+      }
+
+      .hero {
+        padding: 0.9rem;
+      }
+
+      .hero,
+      .hero-copy,
+      .hero-panel,
+      .skill-panel,
+      .gallery-card,
+      .video-card,
+      .print-card,
+      .web-card,
+      .case-card,
+      .bio-card,
+      .contact-card {
+        border-radius: 24px;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .skill-panel,
+      .gallery-card,
+      .video-card,
+      .print-card,
+      .web-card,
+      .case-card,
+      .bio-card,
+      .contact-card {
+        padding: 1.25rem;
+      }
+
+      .hero-copy h1 {
+        margin-top: 0.35rem;
+        margin-bottom: 0.65rem;
+        font-size: clamp(2rem, 10vw, 2.45rem);
+        line-height: 0.96;
+      }
+
+      .hero-title-main,
+      .hero-title-sub {
+        display: block;
+      }
+
+      .hero-title-divider {
+        display: none;
+      }
+
+      .hero-title-sub {
+        margin-top: 0.45rem;
+        font-size: 0.34em;
+        letter-spacing: 0.22em;
+        line-height: 1.25;
+      }
+
+      .hero-copy .eyebrow {
+        margin-top: 0;
+        margin-bottom: 0.95rem;
+        min-height: 0;
+        padding: 0.6rem 0.75rem;
+        font-size: 0.64rem;
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+        align-items: flex-start;
+      }
+
+      .lede {
+        max-width: 32ch;
+        font-size: 0.9rem;
+        line-height: 1.62;
+      }
+
+      .hero-actions {
+        margin-top: 1.35rem;
+      }
+
+      .section-head {
+        margin: 1.55rem 0 1rem;
+        gap: 0.55rem;
+      }
+
+      .section-head h2,
+      .bio-copy h2,
+      .contact-card h2 {
+        font-size: clamp(1.7rem, 8vw, 2.2rem);
+        line-height: 1.04;
+      }
+
+      .gallery-card h3,
+      .video-card h3,
+      .print-card h3,
+      .web-card h3,
+      .case-card h3 {
+        font-size: 1.46rem;
+        line-height: 1.08;
+      }
+
+      .card-kicker,
+      .gallery-label,
+      .web-label,
+      .eyebrow {
+        letter-spacing: 0.14em;
+      }
+
+      .gallery-copy,
+      .card-copy,
+      .print-card p,
+      .video-card p,
+      .web-card p,
+      .case-card p,
+      .bio-copy p,
+      .contact-copy,
+      .skill-node span {
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .bio-copy,
+      .contact-card,
+      .web-card > div:last-child,
+      .case-card,
+      .video-card,
+      .print-card,
+      .gallery-card {
+        gap: 0.8rem;
+      }
+
+      .gallery-grid,
+      .video-grid,
+      .print-grid,
+      .web-grid,
+      .case-grid,
+      .case-metrics,
+      .bio-card {
         grid-template-columns: 1fr;
+      }
+
+      .skill-bank {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+      }
+
+      .skill-node {
+        min-width: 100%;
+      }
+
+      .gallery-media {
+        aspect-ratio: 1 / 1;
+      }
+
+      .web-preview-live,
+      .web-preview-live img {
+        min-height: 220px;
+      }
+
+      .pdf-frame-shell {
+        padding: 0.75rem;
+      }
+
+      .pdf-preview-image {
+        max-height: 220px;
+      }
+
+      .pdf-actions {
+        justify-content: stretch;
+      }
+
+      .pdf-actions .button {
+        width: 100%;
+      }
+
+      .pdf-embed {
+        height: 62vh;
+      }
+
+      .footer-mark {
+        margin-top: 2rem;
+        gap: 0.7rem;
+      }
+
+      .footer-mark::before,
+      .footer-mark::after {
+        width: min(22vw, 92px);
+      }
+
+      .button {
+        width: 100%;
       }
     }
   </style>
@@ -1065,471 +1476,678 @@
 <body>
   <header class="site-header">
     <div class="shell">
-      <div class="brand">
+      <a class="brand" href="#top" aria-label="Emily Martin home">
         <div class="brand-mark">
-          <img src="EM%20Img%202.png" alt="Emily Martin">
+          <img src="EM Img 2.png" alt="Emily Martin logo">
         </div>
         <div class="brand-copy">
-          <span class="brand-line">Emily Martin</span>
-          <span class="brand-sub">Creative Director</span>
+          <span class="brand-line">Emily Martin Creative Portfolio</span>
+          <span class="brand-sub">Marketing • Design • Digital Strategy</span>
         </div>
-      </div>
-      <nav class="nav">
-        <a href="#work">Work</a>
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
         <a href="#skills">Skills</a>
-        <a href="#about">About</a>
+        <a href="#graphic-design">Graphic Design</a>
+        <a href="#video">Video</a>
+        <a href="#print">Print</a>
+        <a href="#web">Web</a>
+        <a href="#case-studies">Case Studies</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="shell">
+  <main id="top">
+    <section class="shell">
+      <div class="hero">
         <div class="hero-grid">
-          <div class="hero-copy">
-            <div class="hero-copy .eyebrow">
-              Welcome to my creative world
-            </div>
-            <h1>
-              <span class="hero-title-main">Emily</span>
-              <span class="hero-title-divider"></span>
-              <span class="hero-title-sub">Portfolio</span>
-            </h1>
+          <article class="hero-copy reveal reveal-scale">
+            <h1><span class="hero-title-main">Emily Martin</span><span class="hero-title-divider" aria-hidden="true"></span><span class="hero-title-sub">Creative Portfolio</span></h1>
+            <span class="eyebrow">Creative Project Manager • Digital Marketing Specialist • Social Media Manager</span>
             <p class="lede">
-              I'm a creative director with a passion for bringing brands to life through innovative design, compelling video marketing, and strategic visual storytelling. From concept to execution, I craft experiences that inspire and engage.
+              I&apos;m a creative marketing professional with over eight years of experience working across both strategy and design.<br>I build thoughtful campaigns, content, and brand experiences that connect strong visual execution with organized planning, digital strategy, and results-focused marketing support.
             </p>
+
             <div class="hero-actions">
-              <a href="#contact" class="button button-primary">Let's Create Together</a>
-              <a href="#work" class="button button-secondary">View My Work</a>
+              <a class="button button-primary" href="#graphic-design">View Portfolio</a>
+              <a class="button button-secondary" href="#case-studies">See Results</a>
             </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" id="skills">
+      <div class="section-head reveal reveal-left">
+        <div class="section-label">
+          <div class="divider"></div>
+          <span class="eyebrow">Skill Bank</span>
+        </div>
+        <h2>Emily&apos;s Toolkit.</h2>
+        <p class="section-copy">
+          A snapshot of the skills, systems, and program fluency I would bring to your team, spanning creative execution, digital tools, and organized project support.
+        </p>
+      </div>
+
+      <div class="skill-panel reveal reveal-scale">
+        <div class="skill-bank" aria-label="Skill bank">
+          <div class="skill-node">
+            <strong>Social Media Strategy</strong>
+            <span>Content planning, platform coordination, and audience-focused execution.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Graphic Design</strong>
+            <span>Brand visuals, campaign graphics, and polished creative support.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Video Marketing</strong>
+            <span>Short-form content, visual storytelling, and digital campaign support.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Print Production</strong>
+            <span>Flyers, signage, brochures, and physical marketing deliverables.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Web Design</strong>
+            <span>Layout refinement, content hierarchy, and on-brand page presentation.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Website Management</strong>
+            <span>Content updates, page organization, and ongoing site maintenance.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Project Coordination</strong>
+            <span>Timelines, approvals, communication, and organized launch support.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Analytics &amp; Reporting</strong>
+            <span>Performance tracking, campaign insights, and outcome summaries.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Programs</strong>
+            <span>Adobe Creative Suite, WordPress, SharePoint, Meta Business Suite, Google Analytics, Canva, ActiveCampaign, Emfluence, and Asana.</span>
+          </div>
+          <div class="skill-node">
+            <strong>SharePoint</strong>
+            <span>Intranet building, page design, content organization, and ongoing management to support internal communication and a polished user experience.</span>
+          </div>
+          <div class="skill-node">
+            <strong>Convention Prep &amp; Participation</strong>
+            <span>Booth planning, branded setup, collateral coordination, and on-site participation for industry-relevant conventions and events.</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section>
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-label">
-            <span class="divider"></span>
-            <h2>Skills & Expertise</h2>
+    <section class="shell" id="graphic-design">
+      <div class="section-head reveal reveal-left">
+        <div class="section-label">
+          <div class="divider"></div>
+          <span class="eyebrow">Graphic Design Gallery</span>
+        </div>
+        <h2>Samples of brand work.</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <article class="gallery-card">
+          <div class="gallery-media">
+            <img src="Truckin Awesome.png" alt="Truckin Awesome design for Arrow Truck Sales">
+            <a class="gallery-expand" href="#image-modal-truckin">Expand View</a>
           </div>
-          <p class="section-copy">
-            I specialize in a wide range of creative disciplines, from graphic design to video production and web design. Each skill is honed through years of professional experience and a commitment to excellence.
+          <span class="gallery-label">Giveaway Designs</span>
+          <h3>Promotional Stickers</h3>
+          <p class="gallery-copy">Designed and produced to hand out as convention swag.</p>
+        </article>
+
+        <article class="gallery-card">
+          <div class="gallery-media">
+            <img src="Springfield Google Review.png" alt="Springfield Google Review social graphic for Arrow Truck Sales">
+            <a class="gallery-expand" href="#image-modal-springfield-review">Expand View</a>
+          </div>
+          <span class="gallery-label">Social Design</span>
+          <h3>Social Graphic</h3>
+          <p class="gallery-copy">Part of a series of social graphics used to promote positive reviews for each branch.</p>
+        </article>
+
+        <article class="gallery-card">
+          <div class="gallery-media">
+            <img src="Vet Backpack Display.jpg" alt="Veteran's Backpack Sign installed in dealership">
+            <a class="gallery-expand" href="#image-modal-vet-backpack">Expand View</a>
+          </div>
+          <span class="gallery-label">Signage</span>
+          <h3>Veteran&apos;s Backpack Sign</h3>
+          <p class="gallery-copy">Designed and produced sign to hang promotional backpack given to Arrow&apos;s veteran customers at purchase.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="video">
+      <div class="section-head reveal reveal-left">
+        <div class="section-label">
+          <div class="divider"></div>
+          <span class="eyebrow">Video Gallery</span>
+        </div>
+        <h2>Video campaigns and productions.</h2>
+      </div>
+
+      <div class="video-grid">
+        <article class="video-card">
+          <span class="card-kicker">Featured Video Project</span>
+          <h3>Volvo Patent Draft</h3>
+          <p class="card-copy">A promotional hype video created for a patent program geared towards providing mentorship to industry innovators.</p>
+          <div class="video-actions">
+            <a
+              class="button button-primary"
+              href="#video-modal-volvo"
+            >
+              Watch Now
+            </a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <span class="card-kicker">Featured Video Project</span>
+          <h3>Arrow Era</h3>
+          <p class="card-copy">A social video filmed and edited by me that came out around the release of Taylor Swift&apos;s newest album. See campaign results in Case Studies.</p>
+          <div class="video-actions">
+            <a
+              class="button button-primary"
+              href="#video-modal-arrow-era"
+            >
+              Watch Now
+            </a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <span class="card-kicker">Featured Video Project</span>
+          <h3>Arrow Onboarding</h3>
+          <p class="card-copy">A full video made for our training program presented to all new Arrow saleesmen.</p>
+          <div class="video-actions">
+            <a
+              class="button button-primary"
+              href="#video-modal-arrow-onboarding"
+            >
+              Watch Now
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="print">
+      <div class="section-head reveal reveal-left">
+        <div class="section-label">
+          <div class="divider"></div>
+          <span class="eyebrow">Printable Material Library</span>
+        </div>
+        <h2>Shirts, brochures, and swag.</h2>
+      </div>
+
+      <div class="print-grid">
+        <article class="print-card">
+          <div class="gallery-media print-media">
+            <img src="Arrow Gives Back Shirt Updated.png" alt="Arrow Gives Back charity campaign shirt design">
+            <a class="gallery-expand" href="#image-modal-arrow-gives-back">Expand View</a>
+          </div>
+          <span class="card-kicker">Wearables</span>
+          <h3>Arrow Gives Back</h3>
+          <p>A sample from our 2025 charity campaign. We would run a campaign internally every year and give out shirts to participating employees.</p>
+        </article>
+
+        <article class="print-card">
+          <div class="gallery-media print-media">
+            <img src="5.2024 Digital Corp Booklet.pdf.png" alt="Arrow Corporate Booklet cover preview">
+            <a class="gallery-expand" href="#image-modal-corp-booklet">Expand View</a>
+          </div>
+          <span class="card-kicker">Brochures</span>
+          <h3>Arrow Corporate Booklet</h3>
+          <p>Fully redesigned Arrow&apos;s main marketing book and handled printing and distribution.</p>
+        </article>
+
+        <article class="print-card">
+          <div class="gallery-media print-media">
+            <img src="ATS Box Outside.pdf.png" alt="Customer Appreciation Box outside artwork">
+            <a class="gallery-expand" href="#image-modal-customer-box">Expand View</a>
+          </div>
+          <span class="card-kicker">Promo Box</span>
+          <h3>Customer Appreciation Box</h3>
+          <p>A box produced to handout at purchased filled with Arrow swag and after sale info.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="web">
+      <div class="section-head reveal reveal-left">
+        <div class="section-label">
+          <div class="divider"></div>
+          <span class="eyebrow">Web Design &amp; Management</span>
+        </div>
+        <h2>Live page design samples.</h2>
+      </div>
+
+      <div class="web-grid">
+        <article class="web-card">
+          <a class="web-preview web-preview-live preview-frame" href="https://www.arrowtruck.com/section-179" target="_blank" rel="noreferrer">
+            <img src="section-179-preview.png" alt="Preview of the Arrow Truck Sales Section 179 page" loading="lazy">
+            <div class="preview-fallback" aria-hidden="true">
+              <span>Open live Section 179 page</span>
+            </div>
+          </a>
+          <div>
+            <span class="web-label">Website Project</span>
+            <h3>Section 179 Page</h3>
+            <p>A page boosted annually on social media as part of Arrow&apos;s annual calendar. I was responsible for the layout and creation of the video. Content was created specifically with SEO optimization in mind.</p>
+            <a class="web-preview-note" href="https://www.arrowtruck.com/section-179" target="_blank" rel="noreferrer">Open full page</a>
+          </div>
+        </article>
+
+        <article class="web-card">
+          <a class="web-preview web-preview-live preview-frame" href="https://www.arrowtruck.com/load-finder" target="_blank" rel="noreferrer">
+            <img src="load-finder-preview.png" alt="Preview of the Arrow Truck Sales Load Finder page" loading="lazy">
+            <div class="preview-fallback" aria-hidden="true">
+              <span>Open live Load Finder page</span>
+            </div>
+          </a>
+          <div>
+            <span class="web-label">Website Project</span>
+            <h3>Load Finder Page</h3>
+            <p>Designed and crafted content for a web page for a special soft product Arrow offers through Volvo.</p>
+            <a class="web-preview-note" href="https://www.arrowtruck.com/load-finder" target="_blank" rel="noreferrer">Open full page</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="case-studies">
+      <div class="section-head reveal reveal-left">
+        <div class="section-label">
+          <div class="divider"></div>
+          <span class="eyebrow">Project Success Case Study</span>
+        </div>
+        <h2>Project performance and outcomes.</h2>
+      </div>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <span class="card-kicker">Agile Trend Marketing</span>
+          <h3>"Arrow Era" Boosted Social Campaign</h3>
+          <p>When a major pop-culture release sparked the highly visible "orange era" trend, I used the moment to position the Arrow brand within a timely cultural conversation. The campaign was designed to feel current, recognizable, and brand-aligned while extending reach through both organic and paid social strategy.</p>
+          <div class="case-metrics">
+            <span class="metric-pill">+172% Instagram Organic Reach</span>
+            <span class="metric-pill">+314% Paid Reach</span>
+            <span class="metric-pill">+48% Followers</span>
+            <span class="metric-pill">+68% Facebook Reach</span>
+            <span class="metric-pill">Website Clicks Increased</span>
+          </div>
+          <div class="case-actions">
+            <a class="button button-secondary" href="#video-modal-arrow-era">View Completed Material</a>
+          </div>
+        </article>
+
+        <article class="case-card">
+          <span class="card-kicker">Social Media Marketing</span>
+          <h3>Arrow Truck of the Day</h3>
+          <p>Weekly paid social ads were used to feature inventory from individual branches and drive quick-turn engagement. This sample reflects just one week of results from a recurring campaign built to generate visibility, traffic, and leads.</p>
+          <div class="case-metrics">
+            <span class="metric-pill">117.7K Facebook Views</span>
+            <span class="metric-pill">2.4K Content Interactions</span>
+            <span class="metric-pill">3.2K Web Link Clicks</span>
+            <span class="metric-pill">39 New Facebook Followers</span>
+            <span class="metric-pill">56 Leads</span>
+          </div>
+          <div class="case-actions">
+            <a class="button button-secondary" href="#image-modal-truck-of-the-day">View Completed Material</a>
+          </div>
+        </article>
+
+        <article class="case-card">
+          <span class="card-kicker">Product Presentation</span>
+          <h3>Glo3D Truck Spin</h3>
+          <p>Researched and implemented a 3D spin application to our website that changed how truck photos were taken and presented. This helped beautify the website while creating a more branded, polished presentation through well-styled truck photography.</p>
+          <div class="case-metrics">
+            <span class="metric-pill">3D Product Presentation</span>
+            <span class="metric-pill">Branded Visual Upgrade</span>
+            <span class="metric-pill">App Supported Photo Uploads</span>
+            <span class="metric-pill">Watermarked Product Photos</span>
+          </div>
+          <div class="case-actions">
+            <a class="button button-secondary" href="#video-modal-glo3d-truck-spin">View Completed Material</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="contact">
+      <div class="bio-card reveal reveal-scale">
+        <div class="bio-portrait">
+          <img src="EM.jpeg" alt="Emily Martin portrait">
+        </div>
+
+        <div class="bio-copy">
+          <span class="eyebrow">About Me</span>
+          <h2>Professional Bio</h2>
+          <p>
+            I am a creative marketing professional with over eight years of experience building thoughtful, results-driven work across brand, digital, and campaign environments. My background combines strategy and execution, allowing me to create work that is visually polished, well organized, and aligned with broader marketing goals.
+          </p>
+          <p>
+            I am skilled in graphic design, web development, project management, marketing systems, social media management, and digital strategy, with experience carrying projects from concept through launch. I do my best work in roles where creativity and structure work together, and where strong systems help ideas move forward with clarity and momentum.
           </p>
         </div>
+      </div>
 
-        <div class="skill-panel">
-          <div class="skill-bank">
-            <div class="skill-node">
-              <strong>Graphic Design</strong>
-              <span>Brand identity, logo design, print collateral</span>
-            </div>
-            <div class="skill-node">
-              <strong>Video Marketing</strong>
-              <span>Promotional videos, product demos, storytelling</span>
-            </div>
-            <div class="skill-node">
-              <strong>Print Materials</strong>
-              <span>Brochures, packaging, signage design</span>
-            </div>
-            <div class="skill-node">
-              <strong>Web Design</strong>
-              <span>UI/UX design, responsive layouts, digital experiences</span>
-            </div>
-            <div class="skill-node">
-              <strong>Motion Graphics</strong>
-              <span>Animations, transitions, visual effects</span>
-            </div>
-            <div class="skill-node">
-              <strong>Photography</strong>
-              <span>Product photography, event coverage, editing</span>
-            </div>
-          </div>
+      <div class="contact-card reveal reveal-scale">
+        <span class="eyebrow">Let&apos;s Connect</span>
+        <h2>Let’s build something creative, strategic, and beautifully organized.</h2>
+        <p class="contact-copy">
+          Available for marketing leadership, creative operations, project management, and digital strategy opportunities.
+        </p>
+
+        <div class="contact-actions">
+          <a class="button button-primary" href="https://www.linkedin.com/in/emilyannemartin93" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
+          <a class="button button-secondary" href="mailto:emily.anne.martin.93@gmail.com">Email Me</a>
         </div>
       </div>
-    </section>
-
-    <!-- Work Section -->
-    <section id="work">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-label">
-            <span class="divider"></span>
-            <h2>Featured Work</h2>
-          </div>
-          <p class="section-copy">
-            A curated selection of my recent projects showcasing my approach to creative problem-solving and design excellence.
-          </p>
-        </div>
-
-        <div class="gallery-grid">
-          <div class="gallery-card">
-            <a href="#image-modal-1" class="gallery-expand">View</a>
-            <div class="gallery-media">
-              <img src="Arrow%20Gives%20Back%20Shirt%20Updated.png" alt="Arrow Gives Back Shirt Design">
-            </div>
-            <h3>Arrow Gives Back</h3>
-            <p class="gallery-copy">Custom apparel design for corporate social responsibility campaign</p>
-          </div>
-
-          <div class="gallery-card">
-            <a href="#image-modal-2" class="gallery-expand">View</a>
-            <div class="gallery-media">
-              <img src="Truckin%20Awesome.png" alt="Truckin Awesome Design">
-            </div>
-            <h3>Truckin Awesome</h3>
-            <p class="gallery-copy">Brand identity and promotional graphics for transportation company</p>
-          </div>
-
-          <div class="gallery-card">
-            <a href="#image-modal-3" class="gallery-expand">View</a>
-            <div class="gallery-media">
-              <img src="Springfield%20Google%20Review.png" alt="Springfield Google Review Graphics">
-            </div>
-            <h3>Springfield Review</h3>
-            <p class="gallery-copy">Social media graphics and review campaign materials</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Video Section -->
-    <section id="videos">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-label">
-            <span class="divider"></span>
-            <h2>Video Projects</h2>
-          </div>
-          <p class="section-copy">
-            Engaging video content that brings brands to life and connects with audiences on a deeper level.
-          </p>
-        </div>
-
-        <div class="video-grid">
-          <div class="video-card">
-            <a href="#video-modal-1" class="gallery-expand">View</a>
-            <h3>3D Truck Animation</h3>
-            <p>Professional 3D rendered truck spin animation for product showcase</p>
-          </div>
-
-          <div class="video-card">
-            <a href="#video-modal-2" class="gallery-expand">View</a>
-            <h3>Product Reel</h3>
-            <p>High-energy product showcase with dynamic transitions and effects</p>
-          </div>
-
-          <div class="video-card">
-            <a href="#video-modal-3" class="gallery-expand">View</a>
-            <h3>Brand Story</h3>
-            <p>Compelling narrative video telling the company's brand story</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Print Section -->
-    <section id="print">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-label">
-            <span class="divider"></span>
-            <h2>Print Materials</h2>
-          </div>
-          <p class="section-copy">
-            Professionally designed print collateral that communicates your brand message with impact and precision.
-          </p>
-        </div>
-
-        <div class="print-grid">
-          <div class="print-card">
-            <a href="#pdf-modal-1" class="gallery-expand">View</a>
-            <div class="gallery-media">
-              <img src="5.2024%20Digital%20Corp%20Booklet.png" alt="2024 Digital Corp Booklet Cover" class="print-media">
-            </div>
-            <h3 class="card-kicker">Digital Corp</h3>
-            <p>Comprehensive corporate booklet with brand guidelines and project case studies</p>
-          </div>
-
-          <div class="print-card">
-            <a href="#pdf-modal-2" class="gallery-expand">View</a>
-            <div class="gallery-media">
-              <img src="Vet%20Display.png" alt="Vet Display Print Materials" class="print-media">
-            </div>
-            <h3 class="card-kicker">Vet Display</h3>
-            <p>Professional veterinary clinic marketing materials and display graphics</p>
-          </div>
-
-          <div class="print-card">
-            <a href="#pdf-modal-3" class="gallery-expand">View</a>
-            <div class="gallery-media">
-              <img src="ATS%20Box%20Outside.png" alt="ATS Box Packaging Design" class="print-media">
-            </div>
-            <h3 class="card-kicker">ATS Packaging</h3>
-            <p>Custom packaging design for product box with custom graphics</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Web Section -->
-    <section id="web">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-label">
-            <span class="divider"></span>
-            <h2>Web Design</h2>
-          </div>
-          <p class="section-copy">
-            Digital experiences designed for engagement, conversion, and user delight.
-          </p>
-        </div>
-
-        <div class="web-grid">
-          <div class="web-card">
-            <h3>Portfolio Website</h3>
-            <div>
-              <div class="web-preview">
-                <img src="EM.jpeg" alt="Website Preview">
-              </div>
-              <span class="web-label">Modern, responsive design</span>
-              <p>A showcase website designed to display creative work with elegant layouts and smooth interactions</p>
-            </div>
-          </div>
-
-          <div class="web-card">
-            <h3>Brand Landing Page</h3>
-            <div>
-              <div class="web-preview">
-                <img src="EM%20Img%202.png" alt="Landing Page Preview">
-              </div>
-              <span class="web-label">Conversion-focused design</span>
-              <p>High-impact landing page designed to capture leads and communicate brand value proposition</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-label">
-            <span class="divider"></span>
-            <h2>About Me</h2>
-          </div>
-        </div>
-
-        <div class="bio-card">
-          <div class="bio-portrait">
-            <img src="EM.jpeg" alt="Emily Martin Portrait">
-          </div>
-          <div class="bio-copy">
-            <h2>Emily Martin</h2>
-            <p>
-              I'm a creative director with a passion for design that tells stories and connects with people. With over a decade of experience in graphic design, video production, and digital strategy, I've worked with brands of all sizes to bring their visions to life.
-            </p>
-            <p>
-              My approach combines strategic thinking with creative excellence, ensuring every project not only looks stunning but also achieves its business objectives. I believe that great design is more than aesthetics—it's about creating meaningful experiences that resonate with audiences.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Case Studies Section -->
-    <section id="cases">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-label">
-            <span class="divider"></span>
-            <h2>Case Studies</h2>
-          </div>
-          <p class="section-copy">
-            In-depth looks at recent projects and the creative process behind them.
-          </p>
-        </div>
-
-        <div class="case-grid">
-          <div class="case-card">
-            <span class="card-kicker">Project Type</span>
-            <h3>Brand Refresh</h3>
-            <p>Complete brand identity redesign for mid-size tech company including logo, color palette, and brand guidelines</p>
-            <div class="case-metrics">
-              <div class="metric-pill">40% Increase in brand recognition</div>
-              <div class="metric-pill">3 months timeline</div>
-            </div>
-            <div class="case-actions">
-              <a href="#" class="button button-secondary">View Case Study</a>
-            </div>
-          </div>
-
-          <div class="case-card">
-            <span class="card-kicker">Video Campaign</span>
-            <h3>Product Launch</h3>
-            <p>Full-service video production from concept to delivery including storyboarding, filming, and post-production</p>
-            <div class="case-metrics">
-              <div class="metric-pill">500K+ video views</div>
-              <div class="metric-pill">6 week production</div>
-            </div>
-            <div class="case-actions">
-              <a href="#" class="button button-secondary">View Case Study</a>
-            </div>
-          </div>
-
-          <div class="case-card">
-            <span class="card-kicker">Print & Digital</span>
-            <h3>Integrated Campaign</h3>
-            <p>Multi-channel marketing campaign across print, digital, and social media platforms with cohesive messaging</p>
-            <div class="case-metrics">
-              <div class="metric-pill">200+ leads generated</div>
-              <div class="metric-pill">2 month campaign</div>
-            </div>
-            <div class="case-actions">
-              <a href="#" class="button button-secondary">View Case Study</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-      <div class="shell">
-        <div class="contact-card">
-          <div class="section-head" style="margin: 0 0 1rem; text-align: center;">
-            <h2>Let's Work Together</h2>
-          </div>
-          <p class="contact-copy">
-            Ready to bring your creative vision to life? Get in touch to discuss your project, ask questions, or explore how we can collaborate.
-          </p>
-          <div class="contact-actions">
-            <a href="mailto:hello@emilymartin.com" class="button button-primary">Send an Email</a>
-            <a href="https://linkedin.com/in/emilymartin" class="button button-secondary">Connect on LinkedIn</a>
-          </div>
+      <div class="footer-mark" aria-hidden="true">
+        <div class="footer-mark-badge">
+          <img src="EM Img 2.png" alt="">
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Video Modal -->
-  <div id="video-modal-1" class="video-modal">
-    <div class="video-modal-backdrop"></div>
-    <div class="video-modal-panel">
+  <div class="video-modal" id="video-modal-volvo">
+    <a class="video-modal-backdrop" href="#video" aria-label="Close video player"></a>
+    <div class="video-modal-panel" role="dialog" aria-modal="true" aria-labelledby="video-modal-title-volvo">
       <div class="video-modal-head">
-        <h3>3D Truck Animation</h3>
-        <a href="#" class="video-modal-close">×</a>
+        <h3 id="video-modal-title-volvo">Volvo Patent Draft</h3>
+        <a class="video-modal-close" href="#video" aria-label="Close video player">Close</a>
       </div>
       <div class="video-modal-body">
         <div class="video-frame-shell">
-          <video controls>
-            <source src="glo3d-truck-spin.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+          <iframe
+            src="https://drive.google.com/file/d/1B4l5Xcufu8l1SOlU-KObTFYH5ReOkVXA/preview"
+            title="Volvo Patent Draft"
+            allow="autoplay"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Image Modal 1 -->
-  <div id="image-modal-1" class="video-modal">
-    <div class="video-modal-backdrop"></div>
-    <div class="image-modal-panel">
+  <div class="video-modal" id="image-modal-truckin">
+    <a class="video-modal-backdrop" href="#graphic-design" aria-label="Close image preview"></a>
+    <div class="image-modal-panel" role="dialog" aria-modal="true" aria-labelledby="image-modal-title-truckin">
       <div class="video-modal-head">
-        <h3>Arrow Gives Back</h3>
-        <a href="#" class="video-modal-close">×</a>
+        <h3 id="image-modal-title-truckin">Truckin Awesome</h3>
+        <a class="video-modal-close" href="#graphic-design" aria-label="Close image preview">Close</a>
       </div>
       <div class="image-modal-body">
         <div class="image-frame-shell">
-          <img src="Arrow%20Gives%20Back%20Shirt%20Updated.png" alt="Arrow Gives Back Shirt Design">
+          <img src="Truckin Awesome.png" alt="Expanded Truckin Awesome design for Arrow Truck Sales">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Image Modal 2 -->
-  <div id="image-modal-2" class="video-modal">
-    <div class="video-modal-backdrop"></div>
-    <div class="image-modal-panel">
+  <div class="video-modal" id="image-modal-springfield-review">
+    <a class="video-modal-backdrop" href="#graphic-design" aria-label="Close image preview"></a>
+    <div class="image-modal-panel" role="dialog" aria-modal="true" aria-labelledby="image-modal-title-springfield-review">
       <div class="video-modal-head">
-        <h3>Truckin Awesome</h3>
-        <a href="#" class="video-modal-close">×</a>
+        <h3 id="image-modal-title-springfield-review">Social Graphic</h3>
+        <a class="video-modal-close" href="#graphic-design" aria-label="Close image preview">Close</a>
       </div>
       <div class="image-modal-body">
         <div class="image-frame-shell">
-          <img src="Truckin%20Awesome.png" alt="Truckin Awesome Design">
+          <img src="Springfield Google Review.png" alt="Expanded Springfield Google Review social graphic for Arrow Truck Sales">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Image Modal 3 -->
-  <div id="image-modal-3" class="video-modal">
-    <div class="video-modal-backdrop"></div>
-    <div class="image-modal-panel">
+  <div class="video-modal" id="image-modal-vet-backpack">
+    <a class="video-modal-backdrop" href="#graphic-design" aria-label="Close image preview"></a>
+    <div class="image-modal-panel" role="dialog" aria-modal="true" aria-labelledby="image-modal-title-vet-backpack">
       <div class="video-modal-head">
-        <h3>Springfield Review</h3>
-        <a href="#" class="video-modal-close">×</a>
+        <h3 id="image-modal-title-vet-backpack">Veteran&apos;s Backpack Sign</h3>
+        <a class="video-modal-close" href="#graphic-design" aria-label="Close image preview">Close</a>
+      </div>
+      <div class="image-modal-body">
+        <div class="image-detail-grid">
+          <div class="image-detail-card">
+            <img src="Vet Backpack Display.jpg" alt="Installed Veteran's Backpack Sign display with hanging backpack">
+          </div>
+          <div class="pdf-detail-card">
+            <div class="pdf-frame-shell">
+              <img class="pdf-preview-image" src="Vet Backpack Display.jpg" alt="Preview of the Veteran's Backpack Sign PDF design">
+              <div class="pdf-actions">
+                <a class="button button-secondary" href="Vet%20Display.pdf" target="_blank" rel="noreferrer">Open PDF in New Tab</a>
+              </div>
+              <div class="pdf-embed">
+                <object data="Vet%20Display.pdf" type="application/pdf" aria-label="Veteran's Backpack Sign PDF">
+                  <div class="pdf-embed-fallback">
+                    <p>This browser cannot display the PDF inline. Use the button above to open the full file.</p>
+                  </div>
+                </object>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-modal" id="image-modal-arrow-gives-back">
+    <a class="video-modal-backdrop" href="#print" aria-label="Close image preview"></a>
+    <div class="image-modal-panel" role="dialog" aria-modal="true" aria-labelledby="image-modal-title-arrow-gives-back">
+      <div class="video-modal-head">
+        <h3 id="image-modal-title-arrow-gives-back">Arrow Gives Back</h3>
+        <a class="video-modal-close" href="#print" aria-label="Close image preview">Close</a>
       </div>
       <div class="image-modal-body">
         <div class="image-frame-shell">
-          <img src="Springfield%20Google%20Review.png" alt="Springfield Google Review Graphics">
+          <img src="Arrow Gives Back Shirt Updated.png" alt="Expanded Arrow Gives Back charity campaign shirt design">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PDF Modal 1 -->
-  <div id="pdf-modal-1" class="video-modal">
-    <div class="video-modal-backdrop"></div>
-    <div class="image-modal-panel">
+  <div class="video-modal" id="image-modal-corp-booklet">
+    <a class="video-modal-backdrop" href="#print" aria-label="Close image preview"></a>
+    <div class="image-modal-panel" role="dialog" aria-modal="true" aria-labelledby="image-modal-title-corp-booklet">
       <div class="video-modal-head">
-        <h3>2024 Digital Corp Booklet</h3>
-        <a href="#" class="video-modal-close">×</a>
+        <h3 id="image-modal-title-corp-booklet">Arrow Corporate Booklet</h3>
+        <a class="video-modal-close" href="#print" aria-label="Close image preview">Close</a>
       </div>
       <div class="image-modal-body">
         <div class="pdf-frame-shell">
-          <iframe src="https://drive.google.com/file/d/1example/preview"></iframe>
+          <img class="pdf-preview-image" src="5.2024 Digital Corp Booklet.pdf.png" alt="Preview of the Arrow Corporate Booklet PDF">
+          <div class="pdf-actions">
+            <a class="button button-secondary" href="5.2024%20Digital%20Corp%20Booklet.pdf" target="_blank" rel="noreferrer">Open PDF in New Tab</a>
+          </div>
+          <div class="pdf-embed">
+            <object data="5.2024%20Digital%20Corp%20Booklet.pdf" type="application/pdf" aria-label="Arrow Corporate Booklet PDF">
+              <div class="pdf-embed-fallback">
+                <p>This browser cannot display the PDF inline. Use the button above to open the full file.</p>
+              </div>
+            </object>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PDF Modal 2 -->
-  <div id="pdf-modal-2" class="video-modal">
-    <div class="video-modal-backdrop"></div>
-    <div class="image-modal-panel">
+  <div class="video-modal" id="image-modal-customer-box">
+    <a class="video-modal-backdrop" href="#print" aria-label="Close image preview"></a>
+    <div class="image-modal-panel" role="dialog" aria-modal="true" aria-labelledby="image-modal-title-customer-box">
       <div class="video-modal-head">
-        <h3>Vet Display Materials</h3>
-        <a href="#" class="video-modal-close">×</a>
+        <h3 id="image-modal-title-customer-box">Customer Appreciation Box</h3>
+        <a class="video-modal-close" href="#print" aria-label="Close image preview">Close</a>
       </div>
       <div class="image-modal-body">
-        <div class="pdf-frame-shell">
-          <iframe src="https://drive.google.com/file/d/1example/preview"></iframe>
+        <div class="image-detail-grid">
+          <div class="pdf-detail-card">
+            <div class="pdf-frame-shell">
+              <img class="pdf-preview-image" src="ATS Box Outside.pdf.png" alt="Preview of the Customer Appreciation Box outside PDF">
+              <div class="pdf-actions">
+                <a class="button button-secondary" href="ATS%20Box%20Outside.pdf" target="_blank" rel="noreferrer">Open Outside PDF</a>
+              </div>
+              <div class="pdf-embed">
+                <object data="ATS%20Box%20Outside.pdf" type="application/pdf" aria-label="Customer Appreciation Box Outside PDF">
+                  <div class="pdf-embed-fallback">
+                    <p>This browser cannot display the PDF inline. Use the button above to open the full file.</p>
+                  </div>
+                </object>
+              </div>
+            </div>
+          </div>
+          <div class="pdf-detail-card">
+            <div class="pdf-frame-shell">
+              <img class="pdf-preview-image" src="ATS Box Inside.pdf.png" alt="Preview of the Customer Appreciation Box inside PDF">
+              <div class="pdf-actions">
+                <a class="button button-secondary" href="ATS%20Box%20Inside.pdf" target="_blank" rel="noreferrer">Open Inside PDF</a>
+              </div>
+              <div class="pdf-embed">
+                <object data="ATS%20Box%20Inside.pdf" type="application/pdf" aria-label="Customer Appreciation Box Inside PDF">
+                  <div class="pdf-embed-fallback">
+                    <p>This browser cannot display the PDF inline. Use the button above to open the full file.</p>
+                  </div>
+                </object>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PDF Modal 3 -->
-  <div id="pdf-modal-3" class="video-modal">
-    <div class="video-modal-backdrop"></div>
-    <div class="image-modal-panel">
+  <div class="video-modal" id="image-modal-truck-of-the-day">
+    <a class="video-modal-backdrop" href="#case-studies" aria-label="Close image preview"></a>
+    <div class="image-modal-panel" role="dialog" aria-modal="true" aria-labelledby="image-modal-title-truck-of-the-day">
       <div class="video-modal-head">
-        <h3>ATS Packaging</h3>
-        <a href="#" class="video-modal-close">×</a>
+        <h3 id="image-modal-title-truck-of-the-day">Arrow Truck of the Day</h3>
+        <a class="video-modal-close" href="#case-studies" aria-label="Close image preview">Close</a>
       </div>
       <div class="image-modal-body">
-        <div class="pdf-frame-shell">
-          <iframe src="https://drive.google.com/file/d/1example/preview"></iframe>
+        <div class="image-frame-shell">
+          <img src="arrow-truck-of-the-day-sample-updated.png" alt="Expanded sample post for the Arrow Truck of the Day campaign">
         </div>
       </div>
     </div>
   </div>
+
+  <div class="video-modal" id="video-modal-arrow-era">
+    <a class="video-modal-backdrop" href="#video" aria-label="Close video player"></a>
+    <div class="video-modal-panel" role="dialog" aria-modal="true" aria-labelledby="video-modal-title-arrow-era">
+      <div class="video-modal-head">
+        <h3 id="video-modal-title-arrow-era">Arrow Era</h3>
+        <a class="video-modal-close" href="#video" aria-label="Close video player">Close</a>
+      </div>
+      <div class="video-modal-body">
+        <div class="video-frame-shell">
+          <iframe
+            src="https://drive.google.com/file/d/1fZ9vqo1VYSgheYK23tGplSryM4uD43-8/preview"
+            title="Arrow Era"
+            allow="autoplay"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-modal" id="video-modal-glo3d-truck-spin">
+    <a class="video-modal-backdrop" href="#case-studies" aria-label="Close video player"></a>
+    <div class="video-modal-panel" role="dialog" aria-modal="true" aria-labelledby="video-modal-title-glo3d-truck-spin">
+      <div class="video-modal-head">
+        <h3 id="video-modal-title-glo3d-truck-spin">Glo3D Truck Spin</h3>
+        <a class="video-modal-close" href="#case-studies" aria-label="Close video player">Close</a>
+      </div>
+      <div class="video-modal-body">
+        <div class="image-detail-grid">
+          <div class="video-frame-shell">
+            <video controls playsinline preload="metadata">
+              <source src="glo3d-truck-spin.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="image-detail-card">
+            <img src="glo3d-truck-spin-sample.png" alt="Sample Glo3D styled truck image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-modal" id="video-modal-arrow-onboarding">
+    <a class="video-modal-backdrop" href="#video" aria-label="Close video player"></a>
+    <div class="video-modal-panel" role="dialog" aria-modal="true" aria-labelledby="video-modal-title-arrow-onboarding">
+      <div class="video-modal-head">
+        <h3 id="video-modal-title-arrow-onboarding">Arrow Onboarding</h3>
+        <a class="video-modal-close" href="#video" aria-label="Close video player">Close</a>
+      </div>
+      <div class="video-modal-body">
+        <div class="video-frame-shell">
+          <iframe
+            src="https://drive.google.com/file/d/1FMt0t-Bmursg3Nbr4DQL3JkyN9CL-p9U/preview"
+            title="Arrow Onboarding Video"
+            allow="autoplay"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const revealGroups = [
+      [".skill-node", "reveal reveal-scale"],
+      [".gallery-card", "reveal reveal-scale"],
+      [".video-card", "reveal reveal-right"],
+      [".print-card", "reveal reveal-scale"],
+      [".web-card", "reveal reveal-right"],
+      [".case-card", "reveal reveal-scale"]
+    ];
+
+    revealGroups.forEach(([selector, classes]) => {
+      document.querySelectorAll(selector).forEach((element, index) => {
+        element.classList.add(...classes.split(" "));
+        element.style.setProperty("--reveal-delay", `${index * 90}ms`);
+      });
+    });
+
+    const revealElements = document.querySelectorAll(".reveal");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      revealElements.forEach((element) => element.classList.add("is-visible"));
+    } else {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -90px 0px"
+      });
+
+      revealElements.forEach((element) => revealObserver.observe(element));
+    }
+
+    document.querySelectorAll(".preview-frame img").forEach((image) => {
+      image.addEventListener("error", () => {
+        image.closest(".preview-frame")?.classList.add("is-fallback");
+      });
+
+      if (image.complete && image.naturalWidth === 0) {
+        image.closest(".preview-frame")?.classList.add("is-fallback");
+      }
+    });
+
+  </script>
 </body>
 </html>
