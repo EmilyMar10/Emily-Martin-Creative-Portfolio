@@ -503,6 +503,89 @@
       line-height: 1.6;
     }
 
+    .skill-accordion {
+      display: none;
+      align-items: flex-start;
+      gap: 0.45rem;
+    }
+
+    .skill-mobile-panel {
+      display: none;
+    }
+
+    .skill-mobile-toggle {
+      list-style: none;
+    }
+
+    .skill-mobile-toggle::-webkit-details-marker {
+      display: none;
+    }
+
+    .skill-accordion-item {
+      width: auto;
+      max-width: 100%;
+      border: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .skill-accordion-toggle {
+      list-style: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.58rem 0.82rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      font-family: "Manrope", sans-serif;
+      font-size: 0.77rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      color: var(--text);
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(181, 87, 64, 0.08);
+    }
+
+    .skill-accordion-toggle::-webkit-details-marker {
+      display: none;
+    }
+
+    .skill-accordion-toggle::after {
+      content: "+";
+      flex: 0 0 auto;
+      font-family: "Manrope", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .skill-accordion-item[open] .skill-accordion-toggle::after {
+      content: "−";
+    }
+
+    .skill-accordion-item[open] {
+      width: 100%;
+    }
+
+    .skill-accordion-item[open] .skill-accordion-toggle {
+      background: rgba(255, 242, 236, 0.96);
+      border-color: rgba(228, 61, 18, 0.2);
+    }
+
+    .skill-accordion-copy {
+      margin-top: 0.45rem;
+      padding: 0.82rem 0.92rem;
+      border: 1px solid rgba(228, 61, 18, 0.12);
+      border-radius: 16px;
+      background: #ffffff;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
     .gallery-media {
       position: relative;
       margin: -0.4rem -0.4rem 0.9rem;
@@ -1480,17 +1563,50 @@
       }
 
       .skill-bank {
-        max-height: 27rem;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding-right: 0.35rem;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior-y: contain;
-        touch-action: pan-y;
+        display: none;
       }
 
-      .skill-node {
-        min-width: 100%;
+      .skill-mobile-panel {
+        display: block;
+      }
+
+      .skill-mobile-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        width: 100%;
+        padding: 0.78rem 0.9rem;
+        border: 1px solid rgba(228, 61, 18, 0.12);
+        border-radius: 18px;
+        background: #ffffff;
+        color: var(--text);
+        font-family: "DM Serif Display", serif;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 14px 28px rgba(181, 87, 64, 0.08);
+      }
+
+      .skill-mobile-toggle::after {
+        content: "+";
+        font-family: "Manrope", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--orange);
+      }
+
+      .skill-mobile-panel[open] .skill-mobile-toggle::after {
+        content: "−";
+      }
+
+      .skill-mobile-panel[open] .skill-accordion {
+        display: flex;
+      }
+
+      .skill-accordion {
+        margin-top: 0.7rem;
+        display: none;
+        flex-wrap: wrap;
       }
 
       .gallery-media {
@@ -1646,6 +1762,55 @@
             <span>Booth planning, branded setup, collateral coordination, and on-site participation for industry-relevant conventions and events.</span>
           </div>
         </div>
+        <details class="skill-mobile-panel">
+          <summary class="skill-mobile-toggle">Open Emily&apos;s Toolkit</summary>
+          <div class="skill-accordion" aria-label="Mobile skill bank">
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Social Media Strategy</summary>
+              <div class="skill-accordion-copy">Content planning, platform coordination, and audience-focused execution.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Graphic Design</summary>
+              <div class="skill-accordion-copy">Brand visuals, campaign graphics, and polished creative support.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Video Marketing</summary>
+              <div class="skill-accordion-copy">Short-form content, visual storytelling, and digital campaign support.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Print Production</summary>
+              <div class="skill-accordion-copy">Flyers, signage, brochures, and physical marketing deliverables.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Web Design</summary>
+              <div class="skill-accordion-copy">Layout refinement, content hierarchy, and on-brand page presentation.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Website Management</summary>
+              <div class="skill-accordion-copy">Content updates, page organization, and ongoing site maintenance.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Project Coordination</summary>
+              <div class="skill-accordion-copy">Timelines, approvals, communication, and organized launch support.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Analytics &amp; Reporting</summary>
+              <div class="skill-accordion-copy">Performance tracking, campaign insights, and outcome summaries.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Programs</summary>
+              <div class="skill-accordion-copy">Adobe Creative Suite, WordPress, SharePoint, Meta Business Suite, Google Analytics, Canva, ActiveCampaign, Emfluence, and Asana.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">SharePoint</summary>
+              <div class="skill-accordion-copy">Intranet building, page design, content organization, and ongoing management to support internal communication and a polished user experience.</div>
+            </details>
+            <details class="skill-accordion-item">
+              <summary class="skill-accordion-toggle">Convention Prep &amp; Participation</summary>
+              <div class="skill-accordion-copy">Booth planning, branded setup, collateral coordination, and on-site participation for industry-relevant conventions and events.</div>
+            </details>
+          </div>
+        </details>
       </div>
     </section>
 
