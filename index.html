@@ -179,6 +179,19 @@
       justify-content: flex-end;
     }
 
+    .nav-menu {
+      margin: 0;
+    }
+
+    .nav-toggle {
+      display: none;
+      list-style: none;
+    }
+
+    .nav-toggle::-webkit-details-marker {
+      display: none;
+    }
+
     .nav a {
       color: rgba(228, 61, 18, 0.84);
       font-size: 0.93rem;
@@ -1251,6 +1264,10 @@
         gap: 0.7rem;
       }
 
+      .nav-menu {
+        width: 100%;
+      }
+
       .brand-line {
         font-size: 0.92rem;
         letter-spacing: 0.06em;
@@ -1262,20 +1279,63 @@
       }
 
       .nav {
-        gap: 0.55rem;
-        padding-bottom: 0.1rem;
+        display: none;
+        width: 100%;
+        margin-top: 0.55rem;
+        padding: 0.7rem;
+        gap: 0.45rem;
+        flex-direction: column;
+        overflow: visible;
+        border-radius: 20px;
+        border: 1px solid rgba(228, 61, 18, 0.12);
+        background: rgba(255, 249, 245, 0.94);
+        box-shadow: 0 18px 36px rgba(181, 87, 64, 0.1);
+      }
+
+      .nav-menu[open] .nav {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        min-height: 48px;
+        padding: 0.75rem 0.95rem;
+        border-radius: 999px;
+        border: 1px solid rgba(228, 61, 18, 0.12);
+        background: rgba(255, 249, 245, 0.82);
+        color: rgba(228, 61, 18, 0.92);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        box-shadow: 0 14px 28px rgba(181, 87, 64, 0.08);
+        cursor: pointer;
+      }
+
+      .nav-toggle::after {
+        content: "+";
+        font-size: 1rem;
+        line-height: 1;
+      }
+
+      .nav-menu[open] .nav-toggle::after {
+        content: "−";
       }
 
       .nav a {
-        flex: 0 0 auto;
-        white-space: nowrap;
-        padding: 0.5rem 0.8rem;
-        padding-right: 0.8rem;
-        border-radius: 999px;
+        display: block;
+        width: 100%;
+        white-space: normal;
+        padding: 0.75rem 0.9rem;
+        padding-right: 0.9rem;
+        border-radius: 14px;
         border: 1px solid rgba(228, 61, 18, 0.12);
-        background: rgba(255, 249, 245, 0.72);
+        background: rgba(255, 255, 255, 0.82);
         font-size: 0.81rem;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.08em;
       }
 
       .nav a:not(:last-child)::after {
@@ -1419,9 +1479,10 @@
       }
 
       .skill-bank {
-        max-height: none;
-        overflow: visible;
-        padding-right: 0;
+        max-height: 27rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 0.35rem;
       }
 
       .skill-node {
@@ -1486,15 +1547,18 @@
         </div>
       </a>
 
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="#skills">Skills</a>
-        <a href="#graphic-design">Graphic Design</a>
-        <a href="#video">Video</a>
-        <a href="#print">Print</a>
-        <a href="#web">Web</a>
-        <a href="#case-studies">Case Studies</a>
-        <a href="#contact">Contact</a>
-      </nav>
+      <details class="nav-menu">
+        <summary class="nav-toggle">Navigate</summary>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#skills">Skills</a>
+          <a href="#graphic-design">Graphic Design</a>
+          <a href="#video">Video</a>
+          <a href="#print">Print</a>
+          <a href="#web">Web</a>
+          <a href="#case-studies">Case Studies</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </details>
     </div>
   </header>
 
@@ -1699,7 +1763,7 @@
 
         <article class="print-card">
           <div class="gallery-media print-media">
-            <img src="5.2024 Digital Corp Booklet.pdf.png" alt="Arrow Corporate Booklet cover preview">
+            <img src="Brochure Preview.png" alt="Arrow Corporate Booklet cover preview">
             <a class="gallery-expand" href="#image-modal-corp-booklet">Expand View</a>
           </div>
           <span class="card-kicker">Brochures</span>
@@ -1709,7 +1773,7 @@
 
         <article class="print-card">
           <div class="gallery-media print-media">
-            <img src="ATS Box Outside.pdf.png" alt="Customer Appreciation Box outside artwork">
+            <img src="Box Preview.png" alt="Customer Appreciation Box outside artwork">
             <a class="gallery-expand" href="#image-modal-customer-box">Expand View</a>
           </div>
           <span class="card-kicker">Promo Box</span>
@@ -1731,7 +1795,7 @@
       <div class="web-grid">
         <article class="web-card">
           <a class="web-preview web-preview-live preview-frame" href="https://www.arrowtruck.com/section-179" target="_blank" rel="noreferrer">
-            <img src="section-179-preview.png" alt="Preview of the Arrow Truck Sales Section 179 page" loading="lazy">
+            <img src="Section 179 Preview.png" alt="Preview of the Arrow Truck Sales Section 179 page" loading="lazy">
             <div class="preview-fallback" aria-hidden="true">
               <span>Open live Section 179 page</span>
             </div>
@@ -1746,7 +1810,7 @@
 
         <article class="web-card">
           <a class="web-preview web-preview-live preview-frame" href="https://www.arrowtruck.com/load-finder" target="_blank" rel="noreferrer">
-            <img src="load-finder-preview.png" alt="Preview of the Arrow Truck Sales Load Finder page" loading="lazy">
+            <img src="Load Finder Preview.png" alt="Preview of the Arrow Truck Sales Load Finder page" loading="lazy">
             <div class="preview-fallback" aria-hidden="true">
               <span>Open live Load Finder page</span>
             </div>
@@ -1964,7 +2028,7 @@
       </div>
       <div class="image-modal-body">
         <div class="pdf-frame-shell">
-          <img class="pdf-preview-image" src="5.2024 Digital Corp Booklet.pdf.png" alt="Preview of the Arrow Corporate Booklet PDF">
+          <img class="pdf-preview-image" src="Brochure Preview.png" alt="Preview of the Arrow Corporate Booklet PDF">
           <div class="pdf-actions">
             <a class="button button-secondary" href="5.2024%20Digital%20Corp%20Booklet.pdf" target="_blank" rel="noreferrer">Open PDF in New Tab</a>
           </div>
@@ -1991,7 +2055,7 @@
         <div class="image-detail-grid">
           <div class="pdf-detail-card">
             <div class="pdf-frame-shell">
-              <img class="pdf-preview-image" src="ATS Box Outside.pdf.png" alt="Preview of the Customer Appreciation Box outside PDF">
+              <img class="pdf-preview-image" src="Box Preview.png" alt="Preview of the Customer Appreciation Box outside PDF">
               <div class="pdf-actions">
                 <a class="button button-secondary" href="ATS%20Box%20Outside.pdf" target="_blank" rel="noreferrer">Open Outside PDF</a>
               </div>
@@ -2006,7 +2070,7 @@
           </div>
           <div class="pdf-detail-card">
             <div class="pdf-frame-shell">
-              <img class="pdf-preview-image" src="ATS Box Inside.pdf.png" alt="Preview of the Customer Appreciation Box inside PDF">
+              <img class="pdf-preview-image" src="Box Preview.png" alt="Preview of the Customer Appreciation Box inside PDF">
               <div class="pdf-actions">
                 <a class="button button-secondary" href="ATS%20Box%20Inside.pdf" target="_blank" rel="noreferrer">Open Inside PDF</a>
               </div>
@@ -2147,6 +2211,17 @@
         image.closest(".preview-frame")?.classList.add("is-fallback");
       }
     });
+
+    const navMenu = document.querySelector(".nav-menu");
+    if (navMenu) {
+      navMenu.querySelectorAll(".nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= 640) {
+            navMenu.removeAttribute("open");
+          }
+        });
+      });
+    }
 
   </script>
 </body>
