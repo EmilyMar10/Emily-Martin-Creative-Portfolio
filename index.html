@@ -46,6 +46,7 @@
       color: var(--text);
       font-family: "Manrope", sans-serif;
       background: var(--cream);
+      overflow-x: hidden;
     }
 
     body::before {
@@ -1483,6 +1484,9 @@
         overflow-y: auto;
         overflow-x: hidden;
         padding-right: 0.35rem;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+        touch-action: pan-y;
       }
 
       .skill-node {
